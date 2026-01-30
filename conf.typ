@@ -1,5 +1,4 @@
 #let conf(
-  course_code: [XYZ 123],
   course_title: [Course Title],
   course_color: gradient.linear(..color.map.plasma),
   authors: ("Allen Rakhamimov", "Additional Authors"),
@@ -26,8 +25,8 @@
   show link: url => underline(text(fill: rgb(0, 0, 255))[#url])
   
   let date = [#month #year]
-  let left_head = [#course_code: #title]
-  let course = [#course_code: #course_title]
+  let left_head = [#title]
+  let course = [#course_title]
   
   // Dynamic right header :)
   let right_head = [
@@ -58,9 +57,9 @@
     bottom + right,
     [
       #if instructors.len() > 1 [
-        Instructors:
+        
       ] else [
-        Instructor:
+
       ]
       #for instructor in instructors [
         #if instructor != instructors.at(-1) [
