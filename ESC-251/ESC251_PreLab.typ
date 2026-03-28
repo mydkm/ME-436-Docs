@@ -23,14 +23,15 @@ Joshua Davidov \
 ESC251: Systems Engineering \ 
 Professor Baglione \ 
 3/25/2026 \ 
-#align(center)[*#underline[QUBE Motor Pre-Lab]*]
+#align(center)[*#underline[QUBE Motor Lab]*]
 
+= Pre-Lab
 #figure(
   image("Screenshot 2026-03-25 at 11-29-46 ME352-Qube-Lab1-Modeling-F25 1.pdf.png", width: 95%),
   caption: [Schematic for the electrical and mechanical model of an electrical motor with disc (load) connected to the motor hub, adapted from "ME352-Qube-Lab1-Modeling-F25 1.pdf".] 
 )<figure-1>
 
-=
+==
 Note $( J=J_m+J_d)$. Assume zero initial conditions. Let $Y(s)$ and $U(s)$ be the motor angular velocity and the applied voltage, respectively, in the Laplace domain.
 
 The set of differential equations governing the system described in @figure-1 are:
@@ -47,9 +48,9 @@ $ ((L J)/K_m) s^2 Y(s) + ((L B + R J) / K_m)s Y(s) + ((R B + K_b K_m) / K_m)Y(s)
 Note @eq-5 be rewritten as:
 #no-num($ Y(s) (((L J s^2) + (L B + R J)s + R B + K_b K_m) / K_m)=U(s) $)
 Then, by dividing both sides of @eq-5 by $Y(s)$, and then taking the reciprocal of both sides, we get the transfer function: 
-#rect($ Y(s) / U(s) = K_m / (L J s^2 + (L B + R J)s + R B + K_b K_m) $) <eq-6>
+#block(stroke: black, inset: 0.5em)[$ Y(s) / U(s) = K_m / (L J s^2 + (L B + R J)s + R B + K_b K_m) $] <eq-6>
 
-=
+==
 Now, consider the state vector 
 $(x = mat(delim: "[", omega; I) )$<x>
 , with output $ omega$. Then, 
@@ -57,16 +58,16 @@ $(dot(x) = mat(delim: "[", dot(omega); dot(I)))$ <dx>.
 By rearranging @eq-2, we can express $dot(omega)$ as a linear combination of elements in our state vector:
 $ dot(omega) = - (B / J) omega+ (K_m / J)I $ <eq-7>
 This can also be achieved for $dot(I)$ by rearranging @eq-1:
-$ dot(I) = (- K_b / L)omega + (-R / L) I + v/L $)<eq-8>
+$ dot(I) = (- K_b / L)omega + (-R / L) I + v/L $<eq-8>
 Therefore, we can express this system with the following state-space matrix equations:
-#rect($ dot(x) = mat(delim: "[", dot(omega); dot(I)) = mat(delim: "[",
+#block(stroke: black, inset: 0.5em)[$ dot(x) = mat(delim: "[", dot(omega); dot(I)) = mat(delim: "[",
   -B/J, K_m / J;
   -K_b/L, -R/L)
   mat(delim: "[", omega; I) + mat(delim: "[", 0; 1/L)v
- $) <eq-9>
-#rect($ y = mat(delim: "[", omega) = mat(delim: "[", 1, 0) mat(delim: "[", omega; I) + [0]v $) <eq-10>
+ $ <eq-9>
+$ y = mat(delim: "[", omega) = mat(delim: "[", 1, 0) mat(delim: "[", omega; I) + [0]v $] <eq-10>
 
-=
+==
 Now, consider the system where $((L=0) and (B=0))$. Then, @eq-1 and @eq-2 become:
 $ R I + K_b omega = v $ <eq-11>
 $ J dot(omega) = K_m I $ <eq-12>
@@ -77,9 +78,9 @@ $ ((R J) / K_m) dot(omega) + K_b omega = v $ <eq-14>
 Taking the Laplace Transform of @eq-14 yields:
 $ ((R J) / K_m) s Y(s) + K_b Y(s) = Y(s)((R J s + K_b K_m) / K_m) = U(s) $ <eq-15>
 Then, by dividing both sides of @eq-15 by $Y(s)$, and then taking the reciprocal of both sides, we get the transfer function: 
-$ Y(s) / U(s) = K_m / (R J s + K_b K_m) $ <eq-16>
+#block(stroke: black, inset: 0.5em)[$ Y(s) / U(s) = K_m / (R J s + K_b K_m) $<eq-16>] 
 
-=
+==
 Now consider the state vector $(x = mat(delim: "[", omega))$ with output $omega$. Then $(dot(x) = mat(delim: "[", dot(omega)))$. By rearranging @eq-12 to isolate $dot(omega)$, we get:
 $ dot(omega) = (K_m / J) I $ <eq-17>
 However, note that, by rearranging @eq-11, we can express $I$ as:
@@ -87,10 +88,10 @@ $ I = (-K_b / R)omega + (v/R) $ <eq-18>
 Substituting @eq-18 into @eq-17 yields:
 $ dot(omega) = (-(K_b K_m) / (R J))omega + ((K_m v) / (R J))v $ <eq-19>
 Therefore, we can express this system with the following state-space matrix equations:
-$ dot(x) = mat(delim: "[", dot(omega)) = mat(delim: "[", -(K_b K_m) / (R J)) mat(delim: "[", omega) + mat(delim: "[", (K_m v) / (R J)) v $ <eq-20>
-$ y= omega = mat(delim: "[", 1) mat(delim: "[", omega) + mat(delim: "[", 0) v $ <eq-21>
+#block(stroke: black, inset: 0.5em)[$ dot(x) = mat(delim: "[", dot(omega)) = mat(delim: "[", -(K_b K_m) / (R J)) mat(delim: "[", omega) + mat(delim: "[", (K_m v) / (R J)) v $ <eq-20>
+$ y= omega = mat(delim: "[", 1) mat(delim: "[", omega) + mat(delim: "[", 0) v $ <eq-21>]
 
-=
+==
 From the problem statement, we have the following givens:
 #no-num($ R = 8.4 Omega, #h(1em)  L = 0.00116H, #h(1em)  J_m = (4.65*10^(-6)) "kg"/m^2, #h(1em) K_m = 0.042, #h(1em) K_b = 0.042 $)
 #no-num($ m = 0.053 "kg", #h(1em) r=0.0248m $)
@@ -99,11 +100,11 @@ Since $J_d$ is modeled as a disc of mass $m$ and radius $r$:
 Recall that $(J = J_d + J_m)$. Consequently,
 #no-num($ J = J_d + J_m = (2.095 * 10^(-5))"kg"/m^2 $)
 
-These numbers are quite fugly. We can use Python (see @appendix[Appendix Code in Section]) to let the computer calculate the poles $s_1$ and $s_2$ for us:
-$ s_1 = -7231.341 "s", #h(1em) s_2 = -10.038 "s" $
+These numbers are quite decrepid. We can use Python (see @appendix[Appendix Code in Section]) to let the computer calculate the poles $s_1$ and $s_2$ for us:
+#block(stroke: black, inset: 0.5em)[$ s_1 = -7231.341 "s", #h(1em) s_2 = -10.038 "s" $]
 Note that ($s_1, s_2 in RR_(<0)$) implies that the system is stable. Additionally, since $(abs(s_1) < abs(s_2))$, it is the dominant pole of the system, and consequently governs the system's response.
 
-=
+==
 Recall that $tau$ is the time constant of a first-order system such that the transfer function $G(s)$ takes the form:
 #no-num($ G(s) = K / (tau s + 1) $)
 where K is the DC gain of the system.
@@ -113,12 +114,29 @@ Consider @eq-16:
 This equation can be rewritten by dividing both the numerator and denominator by $K_b K_m$, yielding:
 $ Y(s) / U(s) = ((1/K_b)) / (((R J) / (K_b K_m)) + 1) $ <eq-22>
 From @eq-22, we can determine that:
-$ K = 1/K_b = (23.810) "rad"/ (s dot V), #h(1em) tau = (R J) / (K_b K_m) = (9.976*10^(-2)) "s" $
+#block(stroke: black, inset: 0.5em)[$ K = 1/K_b = (23.810) "rad"/ (s dot V), #h(1em) tau = (R J) / (K_b K_m) = (9.976*10^(-2)) "s" $]
 Therefore, it can be concluded that the motor reaches $63.2%$ of its steady state angular speed in about 0.10s, and for every 1V of input, the maximum steady state angular speed increases by $(23.810) "rad"/ (s dot V)$.
 
 #pagebreak()
 
+= Lab
+
+==
+When running the QUBE motor with a 12V input voltage, 
+
+==
+insert all figures here!!
+
+==
+Talk about 0.5V and 25V graphs.
+
+==
+Find percent difference between 2.a values and calculated values. Note that the trace tool is not completely accurate.
+
+#pagebreak()
+
 = Appendix Code:<appendix>
+The following code was used to determine the poles of the system, and optionally graph it on a matplotlib graph.
 ```py
 import numpy as np
 import matplotlib.pyplot as plt
