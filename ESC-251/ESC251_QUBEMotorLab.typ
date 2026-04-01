@@ -1,5 +1,6 @@
 #import "@preview/axiom:0.1.0": *
 #import "@preview/physica:0.9.8": *
+#import "@preview/meander:0.4.1"
 #set page(
   numbering: "1",
 )
@@ -26,16 +27,17 @@ Professor Baglione \
 #align(center)[*#underline[QUBE Motor Lab]*]
 
 = Pre-Lab
+
 #figure(
   image("Screenshot 2026-03-25 at 11-29-46 ME352-Qube-Lab1-Modeling-F25 1.pdf.png", width: 95%),
-  caption: [Schematic for the electrical and mechanical model of an electrical motor with disc (load) connected to the motor hub, adapted from "ME352-Qube-Lab1-Modeling-F25 1.pdf".] 
+  caption: [_Schematic for the electrical and mechanical model of an electrical motor with disc (load) connected to the motor hub, adapted from "ME352-Qube-Lab1-Modeling-F25 1.pdf"_.] 
 )<figure-1>
 
 ==
 Note $( J=J_m+J_d)$. Assume zero initial conditions. Let $Y(s)$ and $U(s)$ be the motor angular velocity and the applied voltage, respectively, in the Laplace domain.
 
 The set of differential equations governing the system described in @figure-1 are:
-$ L dot(I) + R I + K_b omega = v $ <eq-1>
+$ L dot(I) + R I + K_b omega = v $<eq-1>
 $ J dot(omega) + B omega = K_m I $ <eq-2>
 Rearranging @eq-2 to isolate $I $ on one side yields @eq-3:
 $ K^(-1)_m (J dot(omega) + B omega) = I $ <eq-3>
@@ -58,14 +60,14 @@ $(dot(x) = mat(delim: "[", dot(omega); dot(I)))$ <dx>.
 By rearranging @eq-2, we can express $dot(omega)$ as a linear combination of elements in our state vector:
 $ dot(omega) = - (B / J) omega+ (K_m / J)I $ <eq-7>
 This can also be achieved for $dot(I)$ by rearranging @eq-1:
-$ dot(I) = (- K_b / L)omega + (-R / L) I + v/L $<eq-8>
+$ dot(I) = (- K_b / L)omega + (-R / L) I + v/L $ <eq-8>
 Therefore, we can express this system with the following state-space matrix equations:
 #block(stroke: black, inset: 0.5em)[$ dot(x) = mat(delim: "[", dot(omega); dot(I)) = mat(delim: "[",
   -B/J, K_m / J;
   -K_b/L, -R/L)
   mat(delim: "[", omega; I) + mat(delim: "[", 0; 1/L)v
- $ <eq-9>
-$ y = mat(delim: "[", omega) = mat(delim: "[", 1, 0) mat(delim: "[", omega; I) + [0]v $] <eq-10>
+ $<eq-9>
+$ y = mat(delim: "[", omega) = mat(delim: "[", 1, 0) mat(delim: "[", omega; I) + [0]v $<eq-10>] 
 
 ==
 Now, consider the system where $((L=0) and (B=0))$. Then, @eq-1 and @eq-2 become:
@@ -89,7 +91,7 @@ Substituting @eq-18 into @eq-17 yields:
 $ dot(omega) = (-(K_b K_m) / (R J))omega + ((K_m v) / (R J))v $ <eq-19>
 Therefore, we can express this system with the following state-space matrix equations:
 #block(stroke: black, inset: 0.5em)[$ dot(x) = mat(delim: "[", dot(omega)) = mat(delim: "[", -(K_b K_m) / (R J)) mat(delim: "[", omega) + mat(delim: "[", (K_m v) / (R J)) v $ <eq-20>
-$ y= omega = mat(delim: "[", 1) mat(delim: "[", omega) + mat(delim: "[", 0) v $ <eq-21>]
+$ y= omega = mat(delim: "[", 1) mat(delim: "[", omega) + mat(delim: "[", 0) v $] <eq-21>
 
 ==
 From the problem statement, we have the following givens:
@@ -101,7 +103,7 @@ Recall that $(J = J_d + J_m)$. Consequently,
 #no-num($ J = J_d + J_m = (2.095 * 10^(-5))"kg"/m^2 $)
 
 These numbers are quite decrepid. We can use Python (see @appendix[Appendix Code in Section]) to let the computer calculate the poles $s_1$ and $s_2$ for us:
-#block(stroke: black, inset: 0.5em)[$ s_1 = -7231.341 "s", #h(1em) s_2 = -10.038 "s" $]
+#block(stroke: black, inset: 0.5em)[$ s_1 = -7231.341 "s", #h(1em) s_2 = -10.038 "s" $<eq-22>]
 Note that ($s_1, s_2 in RR_(<0)$) implies that the system is stable. Additionally, since $(abs(s_1) < abs(s_2))$, it is the dominant pole of the system, and consequently governs the system's response.
 
 ==
@@ -112,31 +114,33 @@ where K is the DC gain of the system.
 Consider @eq-16:
 #no-num($ Y(s) / U(s) = K_m / (R J s + K_b K_m) $)
 This equation can be rewritten by dividing both the numerator and denominator by $K_b K_m$, yielding:
-$ Y(s) / U(s) = ((1/K_b)) / (((R J) / (K_b K_m)) + 1) $ <eq-22>
-From @eq-22, we can determine that:
-#block(stroke: black, inset: 0.5em)[$ K = 1/K_b = (23.810) "rad"/ (s dot V), #h(1em) tau = (R J) / (K_b K_m) = (9.976*10^(-2)) "s" $]
+$ Y(s) / U(s) = ((1/K_b)) / (((R J) / (K_b K_m)) + 1) $ <eq-23>
+From @eq-23, we can determine that:
+#block(stroke: black, inset: 0.5em)[$ K = 1/K_b = (23.810) "rad"/ (s dot V), #h(1em) tau = (R J) / (K_b K_m) = (9.976*10^(-2)) "s" $<eq-24>]
 Therefore, it can be concluded that the motor reaches $63.2%$ of its steady state angular speed in about 0.10s, and for every 1V of input, the maximum steady state angular speed increases by $(23.810) "rad"/ (s dot V)$.
-
-#pagebreak()
 
 = Lab
 
 ==
-When running the QUBE motor with a 12V input voltage, 
+Recall that the theoretical time constant and DC gain was:
+#no-num($ K = 1/K_b = (23.810) "rad"/ (s dot V), #h(1em) tau = (R J) / (K_b K_m) = (9.976*10^(-2)) "s" $)
 
 ==
-insert all figures here!!
+Here were the collected figures from our test runs at 0.5V, 6V, 12V, and 25V.
+#grid(
+  columns: 2,
+  gutter: 0.25em,
+  [#figure(image("QUBE Motor Figs/OmegaTheoAct_0.5V.png"), caption: [Left]) <figure-2>],
+  [#figure(image("QUBE Motor Figs/OmegaTheoAct_0.5V.png"), caption: [Right]) <figure-3>]
+)
 
 ==
-Talk about 0.5V and 25V graphs.
 
 ==
-Find percent difference between 2.a values and calculated values. Note that the trace tool is not completely accurate.
 
 #pagebreak()
 
 = Appendix Code:<appendix>
-The following code was used to determine the poles of the system, and optionally graph it on a matplotlib graph.
 ```py
 import numpy as np
 import matplotlib.pyplot as plt
