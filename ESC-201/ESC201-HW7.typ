@@ -53,7 +53,7 @@ The following given figures are as follows:
 #let fig2 = [
   #figure(
     image("../ESC-201/Figures/Screenshot 2026-03-29 at 20-28-03 ESC201 Mechanics of Materials.png", width: 50%),
-    caption:[]
+    caption:[_FBD of Beam in Problem 5.10_]
   )<figure-2>
 ]
 #meander.reflow({
@@ -71,10 +71,14 @@ The following given figures are as follows:
   // the segmented container.
   content[
     Determine: 
+    - $ max(abs(V))$
+    - $ max(abs(M))$
 
     #underline[Approach:]
 
-    INSERT APPROACH HERE
+    + Consider the beam piecewise (from A to C, A to the left of D, and A to B), with your origin placed at point A ($x=0"ft"$).
+    + Assign a point F at a distance $x"ft"$ from point A (where $0"ft"<=x<=4"ft"$), and sum all moments applied to the beam around point F.
+    +
   ]
 })
 
@@ -167,7 +171,7 @@ The following given figures are as follows:
 #figure(
   image("../ESC-201/Figures/Screenshot 2026-04-01 at 00-47-29 HW7_2026.pdf.png", width: 100%),
   caption: [
-    _Problem Statement for Problem 5.69_
+    _Problem Statement for Problem 5.82_
   ],
 )<figure-4>
 The following given figures are as follows:
