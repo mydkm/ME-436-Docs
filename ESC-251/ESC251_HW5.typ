@@ -93,7 +93,7 @@ $ = mat(delim: "[",
 = Problem 2
 Consider the feedback control system below:
 #figure(
-  image("../ESC-201/Figures/Screenshot 2026-04-01 at 00-47-29 HW7_2026.pdf.png", width: 100%), caption: [_Feedback Control System for Problem 2_])
+  image("ESC251_HW5_Q2.png", width: 100%), caption: [_Feedback Control System for Problem 2_])
 ==
 
 #pagebreak()
@@ -101,7 +101,7 @@ Consider the feedback control system below:
 = Problem 3
 Consider the feedback control system below:
 #figure(
-  image("../ESC-201/Figures/Screenshot 2026-04-01 at 00-47-29 HW7_2026.pdf.png", width: 100%), caption  : [_Feedback Control System for Problem 3_])
+  image("ESC251_HW5_Q3.png", width: 100%), caption  : [_Feedback Control System for Problem 3_])
 
 
 #pagebreak()
@@ -109,6 +109,13 @@ Consider the feedback control system below:
 = Problem 4
 Consider the feedback control system below:
 #figure(
-  image("../ESC-201/Figures/Screenshot 2026-04-01 at 00-47-29 HW7_2026.pdf.png", width: 100%), caption: [_Feedback Control System for Problem 4_])
+  image("ESC251_HW5_Q4.png", width: 100%), caption: [_Feedback Control System for Problem 4_])
+Firstly, you can move the summing point of the negative feedback loop containing $H_3$ outside of the positive feedback loop containing $H_1$, requiring that we place $H_3 / G_1$ in the block instead.
 
-#pagebreak()
+Then, $G_1$ and $G_2$ are in series with one another, so we can replace both blocks with one block containing $G_1G_2$.
+
+Additionally, you can move the origin of the negative feedback loop containing $H_3 / G_1$ the right of the block containing $G_4$ and the right of the array leading to $H_2$, requiring that we place $H_3 / (G_1 G_4 H_2)$ in the block instead.
+
+Then, $G_3$ and $G_4$ are in series with one another, so we can replace both blocks with one block containing $G_3G_4$.
+
+We can now remove the loop containing $G_3G_4$ and
