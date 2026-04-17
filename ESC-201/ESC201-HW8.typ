@@ -141,7 +141,11 @@ Therefore:
 #block(stroke: black, inset: 0.5em)[$ (tau_"max" = (V_"max" Q) / (I t)) arrow.double (max(V) = (tau_"max" I t) / Q = 1.079*10^4 "N") $]
 
 #underline[Discussion:]
-The maximum vertical shearing force that can be exerted on the beam is approximately 10.8 kN. This is a reasonable value for a beam of this size and material, and it indicates that the beam can safely support a significant load without exceeding the maximum shear stress. However, it is important to note that this calculation assumes a uniform distribution of shear stress across the cross-section of the beam, which may not always be the case in real-world applications. Therefore, it is recommended to perform additional analysis or testing to ensure the safety and reliability of the beam under actual loading conditions.
+The shear load path is as follows:
++ The top plank experiences a longitudinal compressive force (that differs as you move along the length of the beam).
++ The glue joints transfer that compressive force into the side strips.
++ The side strips carry that transferred force downward to the bottom glue joints.
++ The bottom glue joints transfer that force into the bottom plank.
 
 #pagebreak()
 
@@ -188,8 +192,8 @@ Finally, we can calculate $(tau_"bolt")$ using $(tau_"bolt" = F_"bolt" / A_"bolt
 
 = Appendix Code <app>
 #v(0.5em)
-The following Jupyter Notebook (attached to the homework submission at "ESC201_HW7.ipynb") was used for calculations.
-#callisto.render(nb: json("ESC201_HW8.ipynb"))
+The following Jupyter Notebook (attached to the homework submission at "ESC201-HW8.ipynb") was used for calculations.
+#callisto.render(nb: json("ESC201-HW8.ipynb"))
 
 
 
