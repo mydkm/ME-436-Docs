@@ -42,14 +42,14 @@ We could model the volumetric flow rate of the liquid by taking the difference o
 
 = Problem 3
 #figure(
-  image("ESC251_HW7_Q2.png", width: 100%), caption: [_Problem Statementfor Problem 3_])
+  image("ESC251_HW7_Q3.png", width: 100%), caption: [_Problem Statementfor Problem 3_])
 ==
 
 #pagebreak()
 
 = Problem 4
 #figure(
-  image("ESC251_HW7_Q2.png", width: 100%), caption: [_Problem Statement for Problem 4_])
+  image("ESC251_HW7_Q4.png", width: 100%), caption: [_Problem Statement for Problem 4_])
 ==
 
 #pagebreak()
