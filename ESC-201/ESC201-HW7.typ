@@ -34,8 +34,7 @@
 
 
 #align(center + horizon)[
-  #text(size: 25pt)[Note that although all numbers present in this homework assignment are displayed with 2-4 significant digits, no rounding occurs until the final answer. \
-  I apologize for the messy handwriting in my previous assignment, I hope that this medium is easier for you to parse through.
+  #text(size: 25pt)[Note that although all numbers present in this homework assignment are displayed with 2-4 significant digits, no rounding occurs until the final answer. Note that in this homework, $P^-$ and $P^+$ refer to the point directly to the left and right of a point P, respectively. \
   ]
 ]
 #pagebreak()
@@ -48,12 +47,13 @@
   ],
 )<figure-1>
 The following given figures are as follows:
+#no-num[$ p_1 = 2 "kips/ft", #h(1em) P_2 = 15 "kips", #h(1em) L = 12 "ft", #h(1em) A C = C D = D B  =4 "ft" $]
 
 
 #let fig2 = [
   #figure(
     image("../ESC-201/Figures/Screenshot 2026-03-29 at 20-28-03 ESC201 Mechanics of Materials.png", width: 50%),
-    caption:[_FBD of Beam in Problem 5.10_]
+    caption:[_INSERT PHOTO OF BEAM CROSS SECTION_]
   )<figure-2>
 ]
 #meander.reflow({
@@ -82,21 +82,70 @@ The following given figures are as follows:
   ]
 })
 
+First, set the positive x-direction to the right $(hat(i))$, set the positive y-direction to be upwards $(hat(j))$, and set the positive z-direction to be CCW $(hat(k))$.
+
+Consider the AC portion of the beam:
+
+Since there is a constant force applied over AC, it can be represented as a single force applied at the midpoint of AC, which is 2 ft from point A. Therefore, the moment applied to the beam at point F is $ M = -2x "ft-lb" $
+
+We can sum all forces applied to the beam in the y direction, and sum all moments about point C, to get the following relationships:
+$ (sum F_y = 0 = -V - 2x) => (V(x) = -2x) $
+$ (sum M_C = 0 = M + 2x * (x / 2)) => (M(x) = -x^2) $
+
+After point C, the only forces applied to the  beam are applied to a single point, so you can express the graphs for $V$ and $M$ as straight line and affine functions, respectively.
+
+Do note, at point C $(x_C=4 "ft")$:
+$ M(x_C) = M(4) = -16 #h(0.5em) ["ft-lb"], #h(1em) V(x_C) = V(4) = -8 #h(0.5em) ["kips"] $
+Now consider the $A D^-$ portion of the beam:
+$ (sum F_y = 0 = -V - p_1(4)) => (V(x) = -4p_1 = -8 #h(0.5em) ["kips"]) $
+$ (sum M_D = 0 = M + p_1(4) * (L - 6)) => (M(x) = -4p_1(L - 6) = -48 #h(0.5em) ["kip ft"]) $
+Now consider the $A B^-$ portion of the beam:
+$ (sum F_y = 0 = -p_1(4) - P_2 - V) => (V(x) = -4p_1 - P_2 = -23 #h(0.5em) ["kips"]) $
+$ (sum M_B = 0 = M + p_1(4) * (L - 2)  + P_2 * (L - 8)) $  $ => (M(x) = -4p_1(L - 2) - P_2(L - 8) = -140 #h(0.5em) ["kip ft"]) $
+#figure(
+    image("../ESC-201/Figures/Screenshot 2026-03-29 at 20-28-03 ESC201 Mechanics of Materials.png", width: 50%),
+    caption:[_INSERT GRAPHS OF SHEAR AND MOMENT_]
+  )<figure-2>
+
 #pagebreak()  
 
 = Problem 5.15
-#figure(
+#let fig3 = [
+  #figure(
   image("../ESC-201/Figures/Screenshot 2026-04-01 at 00-46-54 HW7_2026.pdf.png", width: 100%),
   caption: [
     _Problem Statement for Problem 5.15_
   ],
 )<figure-3>
 The following given figures are as follows:
+$ P_1 = 750 "lb", #h(1em) P_2 = 900 "lb" $
+]
+#meander.reflow({
+  import meander: *
+
+  // Place as many obstacles as you want.
+  placed(top + right, 
+  boundary: contour.margin(0.4cm),
+  fig2)
+
+  // The container wraps around all.
+  container()
+
+  // The content is automatically threaded through
+  // the segmented container.
+  content[
+    Determine: 
+    - $ max(sigma)$
+
+    #underline[Approach:]
+
+    + Consider the beam piecewise (from A to C, A to the left of D, and A to B), with your origin placed at point A ($x=0"ft"$).
+    + Assign a point F at a distance $x"ft"$ from point A (where $0"ft"<=x<=4"ft"$), and sum all moments applied to the beam around point F.
+    +
+  ]
+})
 
 
-Determine: 
-
-#underline[Approach:]
 
 
 
@@ -135,7 +184,7 @@ The following given figures are as follows:
     Determine:
 
     #underline[Approach:]
-    INSERT APPROACH HERE
+    + I have to find the moment
   ]
 })
 
@@ -210,7 +259,7 @@ The following given figures are as follows:
 = Appendix Code <app>
 #v(0.5em)
 The following Jupyter Notebook (attached to the homework submission at "ESC201_HW7.ipynb") was used for calculations.
-#callisto.render(nb: json("ESC201_HW6.ipynb"))
+#callisto.render(nb: json("ESC201-HW7.ipynb"))
 
 
 
