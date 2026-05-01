@@ -36,34 +36,17 @@
 #v(0.5em)
 In this assignment, we:
 
-a) Plot the Paschen curves for air, argon, and carbon dioxide.
+a) Derive $min(V_(B D))$.
 
-b) Plot points representing the breakdown voltage of air at different selected $p d$ values.
+b) Plot the Paschen curves for air, argon, and carbon dioxide given literature Paschen constants.
 
-c) Derive $min(V_(B D))$.
+c) Plot points representing the breakdown voltage of air at different selected $p d$ values.
 
-All relevant Paschen Law constants $(A$ and $B)$ to plot the Paschen curves of relevant gases were derived from Table 1 of #link("https://iopscience.iop.org/article/10.1088/1748-0221/17/09/P09029")["Suppression of electrical breakdown phenomena in liquid TriMethyl Bismuth based ionization detectors"]#super[1].
-#figure(
-  table(
-    columns: 3,
+d) Plot the Paschen curve for air given different secondary Townsend coefficients. 
 
-    table.header[Gas][A $("mbar"^(-1) dot "cm"^(-1))$) ][B $(V dot "mbar"^(-1) dot "cm"^(-1))$],
-    [He], [2], [26],
-    [Ar], [9], [135],
-    [Air], [11], [274],
-    [Ne], [3], [751],
-    [$"CO"_2$], [15], [350]
-  ),
-  caption: [_Table of Paschen Constants, derived from "Suppression of electrical breakdown phenomena in liquid TriMethyl Bismuth based ionization detectors"_],
-) <table-1>
-
-
-#figure(
-  image("ME436_PaschenGasCurve.png", width: 80%),
-  caption: [_Paschen curves for air, argon, and carbon dioxide, with selected air breakdown-voltage points._]
-) <figure-1>
 
 #pagebreak()
+
 = Derivation of $min(V_(B D))$
 #v(0.5em)
 We claim:
@@ -108,52 +91,60 @@ Now, compute $V_(B D)$ at the local extrema present in @eq-3:
 
 #pagebreak()
 
+= Graphs/Tables
+#v(0.5em)
+To produce these graphs, we first have to assume:
+- The electric fields between the electrodes are uniform.
+- Secondary electrons are produced at the cathode only due to the impact of positive ions created during a Townsend discharge.
+- The density of ionized particles is negligible so that it does not affect the uniform electric field between the cathodes.
+- The gas between the plates is ideal.
+
+All relevant Paschen Law constants $(A, B , "and" gamma)$ to plot the Paschen curves of relevant gases were derived from Table 4.1 of _Plasma Chemistry_#super[1] by Alexander Fridman.
+#figure(
+  table(
+    columns: 3,
+
+    table.header[Gas][A $("torr"^(-1) dot "cm"^(-1))$) ][B $(V dot "torr"^(-1) dot "cm"^(-1))$],
+    [He], [3], [34],
+    [Ar], [12], [180],
+    [Air], [15], [365],
+    [Ne], [4], [100],
+    [$"CO"_2$], [20], [466]
+  ),
+  caption: [_Table of Paschen Constants, derived from Plasma Chemistry by Alexander Fridman_],
+) <table-1>
+
+The selected air Paschen curve points are:
+
+ $ p d in {(760.00 "mbar" dot 2 "mm"), (966.86 "mbar" dot 2 "mm")}$.
+
+
+#figure(
+  image("ME436_PaschenGasCurve.png", width: 100%),
+  caption: [_Paschen Curves for Air, Argon, and Carbon Dioxide, with Selected Air Breakdown-Voltage Points_]
+) <figure-1>
+
+As per #link("https://ut3-toulouseinp.hal.science/hal-03876835v1/document")["A Townsend’s secondary ionization coefficient estimation
+method for partial discharge inception voltage prediction for
+insulating polymers"]#super[2], there exists materials that, if they were to be used as electrodes in a plasma system similar to the one used in our Plasma lab, would have a secondary Townsend coefficient of $(gamma in [10^(-5), 10^(-1)])$. Therefore, consider the following figure containing the Paschen curve of air for secondary Townsend coefficients $(gamma in {10^(-5), 10^(-4), 10^(-3), 10^(-2), 10^(-1)})$.
+
+#figure(
+  image("ME436_PaschenGasCurve2.png", width: 100%),
+  caption: [_Paschen Curve of Air of Selected Secondary Townsend Coefficients_]
+) <figure-2>
+
+Note: This behavior makes mathematical sense, as $(V prop log(log(1 / gamma) + 1))$, and physical sense, as a higher secondary Townsend coefficient results in a greater average amount of secondary electrons released per successful atom collision, which increases the likelihood of Townsend discharges to occur.
+
+#pagebreak()
+
+
 = Appendix MATLAB Code <app-matlab>
 #v(0.5em)
 
 Here was the following code to generate the MATLAB figure:
-```matlab
-%% Params. for Paschen Curve
-pd = logspace(-1,3,2000); % 0.1 to 1000 on a log-spaced grid
-gamma = 0.01; %dimensionless; assuming electrodes are made out of stainless steel
-Patm = 1013.25 %mbar
-x = [Patm*0.2, (Patm+(4*68.948))*0.2] %mbar*cm
 
-% Air
-A_Air = 11; %m*bar^(-1)*cm^(-1)
-B_Air = 274; %V*bar^(-1)*cm^(-1)
+#raw(read("../../ESC-251-Matlab/ME436_PaschenCurve.m"), lang: "matlab", block: true)
 
-% Calculate the Paschen curve for Air
-V_Air = B_Air .* pd ./ (log(pd) + log(A_Air) - log(log((1 / gamma) + 1)));
-V_Air((log(pd) + log(A_Air) - log(log((1 / gamma) + 1))) <= 0) = NaN;
-
-% Ar
-A_Ar = 9; %m*bar^(-1)*cm^(-1)
-B_Ar = 135; %V*bar^(-1)*cm^(-1)
-V_Ar = B_Ar .* pd ./ (log(pd) + log(A_Ar) - log(log((1 / gamma) + 1)));
-V_Ar((log(pd) + log(A_Ar) - log(log((1 / gamma) + 1))) <= 0) = NaN;
-
-% CO2
-A_CO2 = 15 %m*bar^(-1)*cm^(-1)
-B_CO2 = 350 %V*bar^(-1)*cm^(-1)
-V_CO2 = B_CO2 .* pd ./ (log(pd) + log(A_CO2) - log(log((1 / gamma) + 1)));
-V_CO2((log(pd) + log(A_CO2) - log(log((1 / gamma) + 1))) <= 0) = NaN;
-
-% Plot the Paschen curves for Air, Argon, and CO2
-figure;
-loglog(pd, V_Air, 'b', 'DisplayName', 'Air');
-hold on;
-loglog(pd, V_Ar, 'r', 'DisplayName', 'Argon');
-loglog(pd, V_CO2, 'g', 'DisplayName', 'CO2');
-y_air_pts = interp1(pd, V_Air, x, 'makima');
-scatter(x, y_air_pts, 'filled', 'DisplayName', 'Selected Paschen Curve Points');
-hold off;
-grid on;
-xlabel('pd (mbar \cdot cm)');
-ylabel('Voltage (V)');
-title('Paschen Curves for Different Gases');
-legend('show');
-```
 #pagebreak()
 
 = Appendix Typst Code
@@ -268,4 +259,7 @@ If you're interested in seeing the code I used to produce this document, here's 
 = References
 #v(1em)
 
-[1] B. Gerke et al., "Suppression of electrical breakdown phenomena in liquid TriMethyl Bismuth based ionization detectors," _Journal of Instrumentation_, vol. 17, no. 09, p. P09029, Sep. 2022, doi: 10.1088/1748-0221/17/09/P09029.
+[1] A. Fridman, Plasma Chemistry. Cambridge, U.K.: Cambridge Univ. Press, 2008.
+
+[2] Y. Kemari, C. van de Steen, G. Belijar, L. Laudebat, S. Diaham, Z. Valdez-Nava, and C. Abadie, “A Townsend’s secondary ionization coefficient estimation method for partial discharge inception voltage prediction for insulating polymers,” in _Proc. 2022 IEEE 4th Int. Conf. on Dielectrics (ICD)_, Palermo, Italy, Jul. 2022, pp. 226–229, doi: 10.1109/ICD53806.2022.9863604. 
+
